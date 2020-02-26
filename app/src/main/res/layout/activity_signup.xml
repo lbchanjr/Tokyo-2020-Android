@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_marginLeft="25dp"
     android:layout_marginRight="25dp"
-    tools:context=".SignupActivity">
+    tools:context=".Activities.SignupActivity">
 
 <!--
     <TextView
@@ -41,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter email"
+        android:id="@+id/editEmailSignup"
         android:inputType="textEmailAddress"/>
 
     <TextView
@@ -53,6 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
+        android:id="@+id/editPasswordSignup"
         android:inputType="textPassword"/>
 
     <TextView
@@ -65,6 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Re-enter password"
+        android:id="@+id/editPasswordConfirmSignup"
         android:inputType="textPassword"/>
 
     <CheckBox
@@ -90,7 +93,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress"
+            android:id="@+id/editAdminEmail"/>
 
         <TextView
             android:layout_marginTop="5dp"
@@ -101,7 +105,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:id="@+id/editAdminPassword"/>
     </LinearLayout>
 
     <Button
@@ -110,7 +115,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="75dp"
         android:paddingRight="75dp"
-        android:onClick="Register"
+        android:onClick="registerButtonClicked"
         android:layout_gravity="center"
-        android:text="Sign-up"/>
+        android:text="Register"/>
 </LinearLayout>

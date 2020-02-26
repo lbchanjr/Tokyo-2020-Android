@@ -1,4 +1,4 @@
-package ca.louisechan.tokyo2020;
+package ca.louisechan.tokyo2020.Activities;
 
 import android.os.Bundle;
 
@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+
+import ca.louisechan.tokyo2020.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

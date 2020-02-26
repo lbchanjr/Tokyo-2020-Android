@@ -1,6 +1,12 @@
-package ca.louisechan.tokyo2020;
+package ca.louisechan.tokyo2020.Models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity (tableName = "users")
 public class User {
+    @PrimaryKey (autoGenerate = true)
+    private int id = 0;             // always set to 0 in order for autoGenerate to work
     private String name;
     private String email;
     private String password;
@@ -11,6 +17,14 @@ public class User {
         this.email = email;
         this.password = password;
         this.isAdmin = isAdmin;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -43,5 +57,11 @@ public class User {
 
     public void setAdmin(Boolean admin) {
         isAdmin = admin;
+    }
+
+    @Override
+    public String toString() {
+        return "[User ID: " + Integer.toString(getId()) + ", Name: " + getName() +
+                ", Email: " + getEmail() + "User type: " + (getAdmin() ? "Admin User":"Regular User") + "]";
     }
 }
