@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter email"
-        android:inputType="textEmailAddress"/>
+        android:inputType="textEmailAddress"
+        android:id="@+id/editLoginEmail"/>
 
     <TextView
         android:layout_marginTop="15dp"
@@ -31,10 +32,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter password"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:id="@+id/editLoginPassword"/>
 
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remember email and password"
+        android:id="@+id/checkRememberMe"/>
     <Button
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="75dp"
@@ -79,48 +87,6 @@
 
     </RelativeLayout>
 
-<!--
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:text="Email"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter email"
-        android:inputType="textEmailAddress"/>
-
-    <TextView
-        android:layout_marginTop="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:text="Enter Password"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword"/>
-
-    <TextView
-        android:layout_marginTop="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:text="Confirm Password"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword"/>
-
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add account as admin (requires verification)"/>
--->
-
     <Button
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
@@ -130,4 +96,22 @@
         android:onClick="signupButtonClicked"
         android:layout_gravity="center"
         android:text="Sign-up"/>
+
+<!--
+    <Button
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete all users in DB"
+        android:padding="10dp"
+        android:onClick="deleteAllUsers"/>
+-->
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete all users (by query delete)"
+        android:padding="10dp"
+        android:onClick="deleteAllUsers2"/>
 </LinearLayout>

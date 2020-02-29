@@ -20,6 +20,10 @@ public interface UserDAO {
     @Delete
     public void deleteUser(User user);
 
+    // delete table
+    @Query("DELETE FROM users")
+    public void deleteAllUsers();
+
     @Update
     public void updateUser(User user);
 
@@ -33,4 +37,5 @@ public interface UserDAO {
     @Query("SELECT * FROM users " +
             "WHERE email = :email ")
     public List<User> getUserByEmail(String email);
+
 }

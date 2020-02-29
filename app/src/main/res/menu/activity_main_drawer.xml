@@ -3,35 +3,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <!--<group android:checkableBehavior="single">-->
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_home"
             android:title="@string/menu_home" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
-        <item
-            android:id="@+id/nav_tools"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
-    </group>
+    <!--</group>-->
 
-    <item android:title="Communicate">
+
+    <item android:title="Attractions">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/menu_share" />
+                android:id="@+id/list_attractions"
+                android:icon="@drawable/ic_tourist_book"
+                android:title="@string/list_attractions" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/menu_send" />
+                android:id="@+id/wishlist"
+                android:icon="@drawable/ic_menu_wishlist"
+                android:title="@string/wishlist" />
+            <item
+                android:id="@+id/ratings"
+                android:icon="@drawable/ic_menu_ratings"
+                android:title="@string/ratings" />
+        </menu>
+    </item>
+
+    <item android:title="Olympics">
+        <menu>
+            <item
+                android:id="@+id/view_all_sked"
+                android:icon="@drawable/ic_menu_calendar"
+                android:title="View all schedules" />
+            <item
+                android:id="@+id/view_sked_by_day"
+                android:icon="@drawable/ic_menu_calendarday"
+                android:title="View schedule by day" />
+            <item
+                android:id="@+id/set_reminder"
+                android:icon="@drawable/ic_menu_bell"
+                android:title="Set game reminder" />
         </menu>
     </item>
 

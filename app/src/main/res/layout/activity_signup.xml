@@ -9,16 +9,6 @@
     android:layout_marginRight="25dp"
     tools:context=".Activities.SignupActivity">
 
-<!--
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Register new user"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"/>
--->
-
     <TextView
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
@@ -29,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter name"
-        android:inputType="textPersonName"/>
+        android:inputType="textPersonName"
+        android:id="@+id/editNameSignup"/>
 
     <TextView
         android:layout_marginTop="5dp"
@@ -118,4 +109,14 @@
         android:onClick="registerButtonClicked"
         android:layout_gravity="center"
         android:text="Register"/>
+    <Button
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="75dp"
+        android:paddingRight="75dp"
+        android:onClick="cancelButtonClicked"
+        android:layout_gravity="center"
+        android:text="Cancel"/>
+
 </LinearLayout>

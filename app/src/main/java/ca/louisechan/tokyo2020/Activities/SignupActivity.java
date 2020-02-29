@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -111,27 +112,41 @@ public class SignupActivity extends AppCompatActivity {
         }
     }
 
-    private void showFirstUserAlert() {
-
+    public void showAlertDialogMessage(String title, String message) {
         AlertDialog.Builder popupBox = new AlertDialog.Builder(SignupActivity.this);
 
-        popupBox.setTitle("First user registration!");
-        // TODO: Add popup message as a string resource
-        popupBox.setMessage("This user will be registered with admin privileges.");
+        popupBox.setTitle(title);
+        popupBox.setMessage(message);
         popupBox.setNeutralButton("OK", null);
         popupBox.show();
+
+
+    }
+
+    private void showFirstUserAlert() {
+
+        // TODO: Add popup message as a string resource
+        String title = "First user registration!";
+        String message = "This user will be registered with admin privileges.";
+
+        showAlertDialogMessage(title, message);
     }
 
     public void registerButtonClicked(View view) {
         Log.d(TAG, "registerButtonClicked: Register button was clicked!");
 
+        boolean signUpSuccessful = false;
+
         EditText editUserEmail = (EditText) findViewById(R.id.editEmailSignup);
         String userEmail = editUserEmail.getText().toString().trim();
         // check if email is a valid one
         if (!Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
-            Toast.makeText(this, "Invalid email! Try again.", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "registerButtonClicked: Invalid email inputted.");
+            //Toast.makeText(this, "Invalid email! Try again.", Toast.LENGTH_SHORT).show();
+            showAlertDialogMessage("Registration error!", "Invalid email address. Try again.");
         }
         else {
+            Log.d(TAG, "registerButtonClicked: Valid email address: " + userEmail);
             // Check if user passwords are a match
             if(checkUserPasswordsMatch((EditText) findViewById(R.id.editPasswordSignup),
                     (EditText) findViewById(R.id.editPasswordConfirmSignup))) {
@@ -146,31 +161,70 @@ public class SignupActivity extends AppCompatActivity {
                     if(!chkBoxAdmin.isEnabled()) {
                         // Admin user registration is allowed.
                         Log.d(TAG, "registerButtonClicked: First used registration. Admin user registration is allowed!");
-                        // TODO: Add user to database
+                        // Add admin user to database
+                        signUpSuccessful = addUserToDatabase(true);
                     }
                     else {
                         if(checkAdminCredIsValid()) {
                             // Admin credentials are valid
                             Log.d(TAG, "registerButtonClicked: Admin creds are valid. Admin user registration is allowed!");
-                            // TODO: Add user to database
+                            // Add admin user to database
+                            signUpSuccessful = addUserToDatabase(true);
                         }
                         else {
-                            Toast.makeText(this, "Wrong admin credentials! User can't be registered as admin.", Toast.LENGTH_SHORT).show();
+                            showAlertDialogMessage("Registration error!", "Wrong admin credentials! User can't be registered as admin.");
+                            //Toast.makeText(this, "Wrong admin credentials! User can't be registered as admin.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
                 else {
-                    // TODO: Regular user registration, check for duplicate emails.
+                    // Add regular user to database
+                    signUpSuccessful = addUserToDatabase(false);
                 }
             }
             else {
                 // Inform user that passwords do not match
-                Toast.makeText(this, "User passwords do not match! Try again.", Toast.LENGTH_SHORT).show();
+                showAlertDialogMessage("Registration error!", "User passwords do not match. Try again.");
+                //Toast.makeText(this, "User passwords do not match! Try again.", Toast.LENGTH_SHORT).show();
             }
 
         }
 
+        // If user registration is successful, return to log-in screen
+        if(signUpSuccessful) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            // TODO Check if there's a need to preload user email and password when returning to login screen
+            startActivity(intent);
+        }
+
     }
+
+    private boolean addUserToDatabase(boolean isAdmin) {
+        boolean addIsSuccessful = true;
+
+        String name = ((EditText) findViewById(R.id.editNameSignup)).getText().toString().trim();
+        String email = ((EditText) findViewById(R.id.editEmailSignup)).getText().toString().trim();
+        String pass = ((EditText) findViewById(R.id.editPasswordSignup)).getText().toString();
+
+        // Check if a user with the same email already exists in the database
+        List<User> userList = LoginActivity.dbConnection.userDao().getUserByEmail(email);
+        if(userList.size() == 0) {
+            // Create a user based on the entries
+            User u = new User(name, email, pass, isAdmin);
+            // Add user to user table.
+            LoginActivity.dbConnection.userDao().addUser(u);
+
+            Log.d(TAG, "addUserToDatabase: User " + u.toString() + " was added to database.");
+        }
+        else {
+            showAlertDialogMessage("Registration error!", "A user with the same email address already exists!");
+            Log.d(TAG, "addUserToDatabase: User was not added to database.");
+            addIsSuccessful = false;
+        }
+
+        return addIsSuccessful;
+    }
+
 
     private boolean checkAdminCredIsValid() {
         EditText editAdminEmail = (EditText) findViewById(R.id.editAdminEmail);
@@ -181,22 +235,27 @@ public class SignupActivity extends AppCompatActivity {
 
         List<User> adminList = LoginActivity.dbConnection.userDao().getUserByEmail(adminEmail);
         if (adminList.size() != 1) {
+            Log.d(TAG, "checkAdminCredIsValid: Admin email does not exist. Count = " + adminList.size());
             return false;
         }
         else {
             // Email was found in database, check if it is an admin user.
             if (adminList.get(0).getAdmin()) {
                 // User is an admin, check if passwords are a match.
-                if (adminPass.equals(adminList.get(0).getPassword())) {
+                String adminInDBPass = adminList.get(0).getPassword();
+                if (adminPass.equals(adminInDBPass)) {
+                    Log.d(TAG, "checkAdminCredIsValid: Admin credentials are valid!");
                     return true;
                 }
                 else {
                     // User is an admin but passwords do not match
+                    Log.d(TAG, "checkAdminCredIsValid: Admin password is not a match. " + adminPass + " vs " + adminInDBPass);
                     return false;
                 }
             }
             else {
                 // user is not an admin
+                Log.d(TAG, "checkAdminCredIsValid: User with email: " + adminEmail + " is not an admin!");
                 return false;
             }
         }
@@ -208,6 +267,11 @@ public class SignupActivity extends AppCompatActivity {
         String passStr1 = pass1.getText().toString();
         String passStr2 = pass2.getText().toString();
 
-        return (pass1.equals(pass2));
+        return (passStr1.equals(passStr2));
+    }
+
+    public void cancelButtonClicked(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }

@@ -6,7 +6,8 @@ import androidx.room.PrimaryKey;
 @Entity (tableName = "users")
 public class User {
     @PrimaryKey (autoGenerate = true)
-    private int id = 0;             // always set to 0 in order for autoGenerate to work
+    private int id;
+    //private int id = 0;             // always set to 0 in order for autoGenerate to work
     private String name;
     private String email;
     private String password;
@@ -61,7 +62,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "[User ID: " + Integer.toString(getId()) + ", Name: " + getName() +
-                ", Email: " + getEmail() + "User type: " + (getAdmin() ? "Admin User":"Regular User") + "]";
+        return "[Name: " + getName() + ", Email: " + getEmail() +
+                "User type: " + (getAdmin() ? "Admin User":"Regular User") + "]";
     }
 }
