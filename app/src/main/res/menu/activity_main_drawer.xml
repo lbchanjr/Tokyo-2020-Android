@@ -14,15 +14,15 @@
     <item android:title="Attractions">
         <menu>
             <item
-                android:id="@+id/list_attractions"
+                android:id="@+id/nav_list_attractions"
                 android:icon="@drawable/ic_tourist_book"
                 android:title="@string/list_attractions" />
             <item
-                android:id="@+id/wishlist"
+                android:id="@+id/nav_wishlist"
                 android:icon="@drawable/ic_menu_wishlist"
                 android:title="@string/wishlist" />
             <item
-                android:id="@+id/ratings"
+                android:id="@+id/nav_ratings"
                 android:icon="@drawable/ic_menu_ratings"
                 android:title="@string/ratings" />
         </menu>
@@ -31,15 +31,15 @@
     <item android:title="Olympics">
         <menu>
             <item
-                android:id="@+id/view_all_sked"
+                android:id="@+id/nav_view_all_sked"
                 android:icon="@drawable/ic_menu_calendar"
                 android:title="View all schedules" />
             <item
-                android:id="@+id/view_sked_by_day"
+                android:id="@+id/nav_view_sked_by_day"
                 android:icon="@drawable/ic_menu_calendarday"
                 android:title="View schedule by day" />
             <item
-                android:id="@+id/set_reminder"
+                android:id="@+id/nav_set_reminder"
                 android:icon="@drawable/ic_menu_bell"
                 android:title="Set game reminder" />
         </menu>

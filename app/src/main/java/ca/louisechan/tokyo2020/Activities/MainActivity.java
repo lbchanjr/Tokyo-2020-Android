@@ -1,10 +1,12 @@
 package ca.louisechan.tokyo2020.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.core.view.GravityCompat;
@@ -21,10 +23,16 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 
+import java.util.List;
+
+import ca.louisechan.tokyo2020.Models.User;
 import ca.louisechan.tokyo2020.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String TAG = "MainActivity";
+
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +55,13 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        Intent intent = getIntent();
+        int userID = intent.getIntExtra("loggedUserID", 0);
+
+        // Retrieve user info from database
+        List<User> userList = LoginActivity.dbConnection.userDao().getUserWithID(userID);
+        currentUser = userList.get(0);
     }
 
     @Override
@@ -63,6 +78,15 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        // Check if user is an admin
+        if(!currentUser.getAdmin()) {
+            // Hide admin UI access for non-admin users.
+            MenuItem item = menu.findItem(R.id.action_admin);
+            if (item != null){
+                item.setVisible(false);
+            }
+        }
         return true;
     }
 
@@ -73,8 +97,20 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        // Check if user has logged out
+        if (id == R.id.action_logout) {
+            Log.d(TAG, "onOptionsItemSelected: User " + currentUser.getEmail() + " has logged out.");
+            // Switch to log-in activity
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if(id == R.id.action_admin) {
+            Log.d(TAG, "onOptionsItemSelected: Switching to admin UI activity.");
+            return true;
+        }
+        else if(id == R.id.action_contact_us) {
+            Log.d(TAG, "onOptionsItemSelected: Contact us menu icon was clicked.");
             return true;
         }
 
@@ -89,17 +125,18 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             // Handle the camera action
-        }/* else if (id == R.id.nav_gallery) {
+        }
+        /* else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_tools) {
 
-        }*/ else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
-        }
+        }*/
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

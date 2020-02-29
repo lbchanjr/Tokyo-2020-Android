@@ -1,6 +1,7 @@
 package ca.louisechan.tokyo2020.Models;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity (tableName = "users")
@@ -18,6 +19,11 @@ public class User {
         this.email = email;
         this.password = password;
         this.isAdmin = isAdmin;
+    }
+
+    @Ignore
+    public User(int id) {
+        this.id = id;
     }
 
     public int getId() {
