@@ -33,15 +33,15 @@
             <item
                 android:id="@+id/nav_view_all_sked"
                 android:icon="@drawable/ic_menu_calendar"
-                android:title="View all schedules" />
+                android:title="@string/view_all_schedules" />
             <item
                 android:id="@+id/nav_view_sked_by_day"
                 android:icon="@drawable/ic_menu_calendarday"
-                android:title="View schedule by day" />
+                android:title="@string/view_schedule_by_day" />
             <item
                 android:id="@+id/nav_set_reminder"
                 android:icon="@drawable/ic_menu_bell"
-                android:title="Set game reminder" />
+                android:title="@string/set_game_reminder" />
         </menu>
     </item>
 

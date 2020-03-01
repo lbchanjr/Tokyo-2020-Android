@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -62,6 +63,13 @@ public class MainActivity extends AppCompatActivity
         // Retrieve user info from database
         List<User> userList = LoginActivity.dbConnection.userDao().getUserByEmail(email);
         currentUser = userList.get(0);
+
+        // Update nav drawer header with user info
+        View headerView = navigationView.getHeaderView(0);
+        TextView title = (TextView) headerView.findViewById(R.id.navhead_title);
+        title.setText("Hello, " + currentUser.getName());
+        TextView subtitle = (TextView) headerView.findViewById(R.id.navhead_subtitle);
+        subtitle.setText(currentUser.getEmail());
     }
 
     @Override
@@ -111,6 +119,18 @@ public class MainActivity extends AppCompatActivity
         }
         else if(id == R.id.action_contact_us) {
             Log.d(TAG, "onOptionsItemSelected: Contact us menu icon was clicked.");
+            return true;
+        }
+        else if(id == R.id.action_phone) {
+            Log.d(TAG, "onOptionsItemSelected: Contact us by phone was clicked.");
+            return true;
+        }
+        else if(id == R.id.action_email) {
+            Log.d(TAG, "onOptionsItemSelected: Contact us by email was clicked.");
+            return true;
+        }
+        else if(id == R.id.action_sms) {
+            Log.d(TAG, "onOptionsItemSelected: Contact us by SMS was clicked.");
             return true;
         }
 

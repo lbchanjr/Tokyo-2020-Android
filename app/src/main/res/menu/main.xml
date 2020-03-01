@@ -1,19 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/action_logout"
-        android:title="Logout"
-        app:showAsAction="never" />
+
     <item
         android:id="@+id/action_admin"
-        android:title="Switch to Admin UI"
-        app:showAsAction="never" />
+        android:title="@string/switch_to_admin_ui"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/action_contact_us"
-        android:icon="@drawable/ic_menu_support"
-        android:title="Contact us"
-        app:showAsAction="ifRoom"/>
+        android:icon="@drawable/ic_menu_info"
+        android:title="@string/contact_us"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/action_phone"
+                android:title="@string/call_us"
+                android:icon="@drawable/ic_menu_phone"
+                app:showAsAction="withText"/>
+            <item
+                android:id="@+id/action_sms"
+                android:title="@string/send_an_sms"
+                android:icon="@drawable/ic_menu_sms"
+                app:showAsAction="withText"/>
+            <item
+                android:id="@+id/action_email"
+                android:title="@string/send_an_email"
+                android:icon="@drawable/ic_menu_email"
+                app:showAsAction="withText"/>
+        </menu>
+    </item>
 
+    <item
+        android:id="@+id/action_logout"
+        android:title="@string/logout"
+        android:icon="@drawable/ic_menu_logout"
+        app:showAsAction="ifRoom"/>
 </menu>

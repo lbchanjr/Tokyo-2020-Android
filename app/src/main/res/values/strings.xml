@@ -20,5 +20,14 @@
 
     <string name="overall_sked">Overall schedule</string>
     <string name="day_sked">Schedule by day</string>
+    <string name="switch_to_admin_ui">Switch to Admin UI</string>
+    <string name="logout">Logout</string>
+    <string name="contact_us">Contact us</string>
+    <string name="call_us"> Call us</string>
+    <string name="send_an_sms"> Send an SMS</string>
+    <string name="send_an_email"> Send an email</string>
+    <string name="view_schedule_by_day">View schedule by day</string>
+    <string name="set_game_reminder">Set game reminder</string>
+    <string name="view_all_schedules">View all schedules</string>
 
 </resources>
