@@ -8,7 +8,6 @@ import androidx.room.PrimaryKey;
 public class User {
     @PrimaryKey (autoGenerate = true)
     private int id;
-    //private int id = 0;             // always set to 0 in order for autoGenerate to work
     private String name;
     private String email;
     private String password;

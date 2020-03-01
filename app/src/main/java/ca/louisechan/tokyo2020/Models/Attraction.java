@@ -1,22 +1,33 @@
 package ca.louisechan.tokyo2020.Models;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "attractions")
 public class Attraction {
+    @PrimaryKey
     private String name;
     private String address;
-    private String imageLink;
+    @ColumnInfo(name = "image_url")
+    private String imageUrl;
+    @ColumnInfo(name = "brief_desc")
     private String briefDesc;
     private String website;
-    private String videoLink;
+    @ColumnInfo(name = "youtube_url")
+    private String youtubeUrl;
+    @ColumnInfo(name = "detailed_desc")
     private String detailedDesc;
+    @ColumnInfo(name = "visit_fee")
     private Double visitFee;
 
     public Attraction(String name) {
         this.name = name;
         address = "";
-        imageLink = "";
+        imageUrl = "";
         briefDesc = "";
         website = "";
-        videoLink = "";
+        youtubeUrl = "";
         detailedDesc = "";
         visitFee = 0.0;
     }
@@ -37,12 +48,12 @@ public class Attraction {
         this.address = address;
     }
 
-    public String getImageLink() {
-        return imageLink;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getBriefDesc() {
@@ -61,12 +72,12 @@ public class Attraction {
         this.website = website;
     }
 
-    public String getVideoLink() {
-        return videoLink;
+    public String getYoutubeUrl() {
+        return youtubeUrl;
     }
 
-    public void setVideoLink(String videoLink) {
-        this.videoLink = videoLink;
+    public void setYoutubeUrl(String youtubeUrl) {
+        this.youtubeUrl = youtubeUrl;
     }
 
     public String getDetailedDesc() {
