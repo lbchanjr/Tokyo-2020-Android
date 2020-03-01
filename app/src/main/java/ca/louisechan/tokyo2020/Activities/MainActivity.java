@@ -1,14 +1,25 @@
 package ca.louisechan.tokyo2020.Activities;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
@@ -22,7 +33,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -32,6 +45,10 @@ import ca.louisechan.tokyo2020.R;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
+    // Unique permission code for call and sms intents
+    private static final int CALL_PERMISSION_CODE = 100;
+    private static final int SMS_PERMISSION_CODE = 101;
+    private static final String TOKYO_TOURIST_CENTER_NUMBER = "+81-3-5321-3077";
 
     private User currentUser;
 
@@ -41,14 +58,17 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+        // TODO Implement this function in admin interface
+        //        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -123,6 +143,30 @@ public class MainActivity extends AppCompatActivity
         }
         else if(id == R.id.action_phone) {
             Log.d(TAG, "onOptionsItemSelected: Contact us by phone was clicked.");
+            AlertDialog.Builder popupBox = new AlertDialog.Builder(this);
+
+            // Show popup box confirming the call
+            popupBox.setTitle("Calling Tokyo Tourist Info Center...");
+            popupBox.setMessage("Proceed with the call?\n(WARNING: Call charges may apply!)");
+            popupBox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Log.d(TAG, "onClick: Making a call to Tokyo Tourist Information Center...");
+                    // Check if call permissions are allow, if it is make the call.
+                    // Otherwise, request call permission from user.
+                    callPhoneButtonPressed();
+                }
+            });
+
+            // Do nothing if no is clicked by user.
+            popupBox.setNegativeButton("No", null);
+
+            // Show the alert dialog box
+            AlertDialog dialog = popupBox.show();
+            // Center the message text (call show() prior to fetching text view)
+            TextView messageView = (TextView)dialog.findViewById(android.R.id.message);
+            messageView.setGravity(Gravity.CENTER);
+
             return true;
         }
         else if(id == R.id.action_email) {
@@ -137,6 +181,53 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public void callPhoneButtonPressed() {
+        // Check permissions for call
+/*
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
+                == PackageManager.PERMISSION_DENIED) {
+
+            // Requesting the permission
+            ActivityCompat.requestPermissions(this,
+                    new String[] { Manifest.permission.CALL_PHONE },
+                    CALL_PERMISSION_CODE);
+        }
+        else {
+            Log.d(TAG, "callPhoneButtonPressed: Call permission already granted.");
+
+            // Call number
+            callTouristInfoCenter();
+        }
+*/
+        // Check if calls are allowed for this app.
+        if(checkAppPermission(Manifest.permission.CALL_PHONE, CALL_PERMISSION_CODE)
+                != PackageManager.PERMISSION_DENIED) {
+            Log.d(TAG, "callPhoneButtonPressed: Call permission already granted.");
+
+            // Call number
+            callTouristInfoCenter();
+        }
+    }
+
+    public int checkAppPermission(String permission, int permissionReqCode) {
+        // Check if permission has already been granted
+        if (ContextCompat.checkSelfPermission(MainActivity.this, permission)
+                == PackageManager.PERMISSION_DENIED) {
+
+            // Requesting the permission
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[] { permission },
+                    permissionReqCode);
+            return PackageManager.PERMISSION_DENIED;
+        }
+        else {
+            //Log.d(TAG, "Permission already granted.");
+            return PackageManager.PERMISSION_GRANTED;
+        }
+
+    }
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -144,22 +235,99 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
+            Log.d(TAG, "onNavigationItemSelected: Home menu item was clicked!");
         }
-        /* else if (id == R.id.nav_gallery) {
+        else if (id == R.id.nav_list_attractions) {
+            Log.d(TAG, "onNavigationItemSelected: List attractions menu item was clicked!");
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_wishlist) {
+            Log.d(TAG, "onNavigationItemSelected: List wishlist menu item was clicked!");
 
-        } else if (id == R.id.nav_tools) {
+        } else if (id == R.id.nav_ratings) {
+            Log.d(TAG, "onNavigationItemSelected: List ratings menu item was clicked!");
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_view_all_sked) {
+            Log.d(TAG, "onNavigationItemSelected: View all sked menu item was clicked!");
 
-        } else if (id == R.id.nav_send) {
-
-        }*/
+        } else if (id == R.id.nav_view_sked_by_day) {
+            Log.d(TAG, "onNavigationItemSelected: View sked by day menu item was clicked!");
+        } else if (id == R.id.nav_set_reminder) {
+            Log.d(TAG, "onNavigationItemSelected: Set reminder menu item was clicked!");
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    // This function is called when the user accepts or decline the permission.
+    // Request Code is used to check which permission called this function.
+    // This request code is provided when the user is prompt for permission.
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode,
+                permissions,
+                grantResults);
+
+        if (requestCode == CALL_PERMISSION_CODE) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(MainActivity.this,
+                        "Call Permission Granted",
+                        Toast.LENGTH_SHORT)
+                        .show();
+
+                // Call tourist information center number
+                callTouristInfoCenter();
+            }
+            else {
+                Toast.makeText(this,
+                        "Call Permission Denied",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+        if (requestCode == SMS_PERMISSION_CODE) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d(TAG, "onRequestPermissionsResult: SMS Permission granted");
+
+                // TODO: Send sms here!!!
+
+            }
+            else {
+                Toast.makeText(this,
+                        "SMS Permission Denied",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+
+    }
+
+    public void callTouristInfoCenter() {
+
+        String formattedPhoneNumber = "tel:" + TOKYO_TOURIST_CENTER_NUMBER;
+
+        Log.d(TAG, "Formatted phone number is: " + formattedPhoneNumber);
+
+        // Make the call using the formatted phone number
+        Intent i = new Intent(Intent.ACTION_CALL);
+        i.setData(Uri.parse(formattedPhoneNumber));
+
+        // Check if dialer app is available (e.g. Phone app)
+        if(i.resolveActivity(getPackageManager()) != null) {
+            Toast.makeText(this, "Calling " + TOKYO_TOURIST_CENTER_NUMBER + "...", Toast.LENGTH_SHORT).show();
+            startActivity(i);
+        }
+        else {
+            Toast.makeText(this, "ERROR: Can't find app to use for the phone call...", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "ERROR: Cannot find app that matches ACTION_CALL intent");
+        }
+    }
+
+
 }

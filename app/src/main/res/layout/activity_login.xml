@@ -14,11 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:text="Email"/>
+        android:text="@string/email"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter email"
+        android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
         android:id="@+id/editLoginEmail"/>
 
@@ -27,18 +27,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:text="Password"/>
+        android:text="@string/password"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter password"
+        android:hint="@string/password_hint"
         android:inputType="textPassword"
         android:id="@+id/editLoginPassword"/>
 
     <CheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Remember email and password"
+        android:text="@string/remember_me"
         android:id="@+id/checkRememberMe"/>
     <Button
         android:layout_marginTop="20dp"
@@ -49,7 +49,7 @@
         android:paddingRight="75dp"
         android:onClick="loginButtonClicked"
         android:layout_gravity="center"
-        android:text="Log-in"/>
+        android:text="@string/log_in"/>
 
     <RelativeLayout
         android:layout_marginTop="20dp"
@@ -95,17 +95,7 @@
         android:paddingRight="100dp"
         android:onClick="signupButtonClicked"
         android:layout_gravity="center"
-        android:text="Sign-up"/>
-
-<!--
-    <Button
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete all users in DB"
-        android:padding="10dp"
-        android:onClick="deleteAllUsers"/>
--->
+        android:text="@string/sign_up"/>
 
     <Button
         android:layout_marginTop="20dp"

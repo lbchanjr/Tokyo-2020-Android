@@ -29,5 +29,12 @@
     <string name="view_schedule_by_day">View schedule by day</string>
     <string name="set_game_reminder">Set game reminder</string>
     <string name="view_all_schedules">View all schedules</string>
+    <string name="email">Email</string>
+    <string name="email_hint">Enter email</string>
+    <string name="password">Password</string>
+    <string name="password_hint">Enter password</string>
+    <string name="remember_me">Remember email and password</string>
+    <string name="log_in">Log-in</string>
+    <string name="sign_up">Sign-up</string>
 
 </resources>
