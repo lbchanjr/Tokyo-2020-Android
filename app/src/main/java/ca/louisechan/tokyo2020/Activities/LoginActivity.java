@@ -1,5 +1,6 @@
 package ca.louisechan.tokyo2020.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -66,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         if (dbConnection == null) {
             Log.d(TAG, "onCreate: Initializing dbConnection.");
             dbConnection = Room.databaseBuilder(getApplicationContext(), Tokyo2020Database.class,
-                    "users").addMigrations(MIGRATION_1_2).allowMainThreadQueries().build();
+                    "users").addMigrations(MIGRATION_1_2, MIGRATION_2_3).allowMainThreadQueries().build();
         }
         else {
             Log.d(TAG, "onCreate: dbConnection already initialized.");
@@ -225,6 +226,29 @@ public class LoginActivity extends AppCompatActivity {
             database.execSQL("DROP TABLE users");
 
             database.execSQL("ALTER TABLE users_copy RENAME TO users");
+        }
+    };
+
+    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS `attractions` (`name` TEXT NOT NULL, `address` TEXT, " +
+                    "`image_url` TEXT, `brief_desc` TEXT, `website` TEXT, `youtube_url` TEXT, `detailed_desc` TEXT, " +
+                    "`visit_fee` REAL, PRIMARY KEY(`name`))");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `ratings` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "`user_email` TEXT, `attraction_name` TEXT, `rating` REAL NOT NULL, FOREIGN KEY(`user_email`) REFERENCES " +
+                    "`users`(`email`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`attraction_name`) REFERENCES " +
+                    "`attractions`(`name`) ON UPDATE NO ACTION ON DELETE CASCADE )");
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_ratings_user_email` ON `ratings` (`user_email`)");
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_ratings_attraction_name` ON `ratings` (`attraction_name`)");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `wishlists` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                    "`user_email` TEXT, `attraction_name` TEXT, FOREIGN KEY(`user_email`) REFERENCES `users`(`email`) " +
+                    "ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`attraction_name`) REFERENCES `attractions`(`name`) " +
+                    "ON UPDATE NO ACTION ON DELETE CASCADE )");
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_wishlists_user_email` ON `wishlists` (`user_email`)");
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_wishlists_attraction_name` ON `wishlists` (`attraction_name`)");
         }
     };
 

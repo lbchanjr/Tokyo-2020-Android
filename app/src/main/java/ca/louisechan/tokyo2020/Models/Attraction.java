@@ -1,5 +1,6 @@
 package ca.louisechan.tokyo2020.Models;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -7,7 +8,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "attractions")
 public class Attraction {
     @PrimaryKey
-    private String name;
+    private @NonNull String name;
     private String address;
     @ColumnInfo(name = "image_url")
     private String imageUrl;
@@ -21,7 +22,7 @@ public class Attraction {
     @ColumnInfo(name = "visit_fee")
     private Double visitFee;
 
-    public Attraction(String name) {
+    public Attraction(@NonNull String name) {
         this.name = name;
         address = "";
         imageUrl = "";
@@ -32,11 +33,11 @@ public class Attraction {
         visitFee = 0.0;
     }
 
-    public String getName() {
+    public @NonNull String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(@NonNull String name) {
         this.name = name;
     }
 

@@ -20,7 +20,7 @@ public interface AttractionDAO {
     @Delete
     void deleteAttraction(Attraction a);
 
-    // delete table
+    // delete table contents
     @Query("DELETE FROM attractions")
     void deleteAllAttractions();
 

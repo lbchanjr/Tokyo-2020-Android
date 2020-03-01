@@ -9,6 +9,7 @@ import androidx.room.Update;
 import java.util.List;
 
 import ca.louisechan.tokyo2020.Models.Rating;
+import ca.louisechan.tokyo2020.Models.RatingByName;
 
 @Dao
 public interface RatingDAO {
@@ -20,7 +21,7 @@ public interface RatingDAO {
     @Delete
     void deleteRating(Rating r);
 
-    // delete table
+    // delete table contents
     @Query("DELETE FROM ratings")
     void deleteAllRatings();
 
@@ -41,4 +42,8 @@ public interface RatingDAO {
     @Query("SELECT * FROM ratings " +
             "WHERE user_email = :email ")
     List<Rating> getRatingsByUserEmail(String email);
+
+    @Query("SELECT u.name, r.attraction_name, rating FROM ratings AS r " +
+            "INNER JOIN users AS u ON u.email = r.user_email")
+    List<RatingByName> getRatingsWithNameList();
 }

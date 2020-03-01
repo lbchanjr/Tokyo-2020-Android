@@ -9,6 +9,7 @@ import androidx.room.Update;
 import java.util.List;
 
 import ca.louisechan.tokyo2020.Models.Wishlist;
+import ca.louisechan.tokyo2020.Models.WishlistByName;
 
 @Dao
 public interface WishlistDAO {
@@ -20,7 +21,7 @@ public interface WishlistDAO {
     @Delete
     void deleteWishlist(Wishlist w);
 
-    // delete table
+    // delete table contents
     @Query("DELETE FROM wishlists")
     void deleteAllWishlists();
 
@@ -41,5 +42,9 @@ public interface WishlistDAO {
     @Query("SELECT * FROM wishlists " +
             "WHERE user_email = :email ")
     List<Wishlist> getWishlistsByUserEmail(String email);
+
+    @Query("SELECT u.name, w.attraction_name FROM wishlists AS w " +
+            "INNER JOIN users AS u ON u.email = w.user_email")
+    List<WishlistByName> getWishlistsWithName();
 
 }
