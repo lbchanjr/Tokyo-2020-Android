@@ -14,32 +14,32 @@ import ca.louisechan.tokyo2020.Models.Wishlist;
 public interface WishlistDAO {
     // Insert record into database
     @Insert
-    public void addWishlist(Wishlist w);
+    void addWishlist(Wishlist w);
 
     // delete from database
     @Delete
-    public void deleteWishlist(Wishlist w);
+    void deleteWishlist(Wishlist w);
 
     // delete table
     @Query("DELETE FROM wishlists")
-    public void deleteAllWishlists();
+    void deleteAllWishlists();
 
     @Update
-    public void updateWishlist(Wishlist w);
+    void updateWishlist(Wishlist w);
 
     @Query("Select * from wishlists")
-    public List<Wishlist> getallWishlists();
+    List<Wishlist> getallWishlists();
 
     @Query("SELECT * FROM wishlists " +
             "WHERE id = :id ")
-    public List<Wishlist> getWishlistByID(int id);
+    List<Wishlist> getWishlistByID(int id);
 
     @Query("SELECT * FROM wishlists " +
             "WHERE attraction_name = :attraction ")
-    public List<Wishlist> getWishlistsByAttraction(String attraction);
+    List<Wishlist> getWishlistsByAttraction(String attraction);
 
     @Query("SELECT * FROM wishlists " +
-            "WHERE user_id = :id ")
-    public List<Wishlist> getWishlistsByUserID(int id);
+            "WHERE user_email = :email ")
+    List<Wishlist> getWishlistsByUserEmail(String email);
 
 }

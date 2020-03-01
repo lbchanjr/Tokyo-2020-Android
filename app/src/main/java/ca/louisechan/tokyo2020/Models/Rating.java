@@ -6,7 +6,7 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "ratings", foreignKeys = {
-    @ForeignKey(entity = User.class, parentColumns = "id", childColumns = "user_id",
+    @ForeignKey(entity = User.class, parentColumns = "email", childColumns = "user_email",
         onDelete = ForeignKey.CASCADE),
     @ForeignKey(entity = Attraction.class, parentColumns = "name", childColumns = "attraction_name",
         onDelete = ForeignKey.CASCADE)
@@ -14,14 +14,14 @@ import androidx.room.PrimaryKey;
 public class Rating {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    @ColumnInfo(name = "user_id")
-    private int userID;
+    @ColumnInfo(name = "user_email")
+    private String userEmail;
     @ColumnInfo(name = "attraction_name")
     private String attractionName;
     private double rating;
 
-    public Rating(int userID, String attractionName, double rating) {
-        this.userID = userID;
+    public Rating(String userEmail, String attractionName, double rating) {
+        this.userEmail = userEmail;
         this.attractionName = attractionName;
         this.rating = rating;
     }
@@ -34,12 +34,12 @@ public class Rating {
         this.id = id;
     }
 
-    public int getUserID() {
-        return userID;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getAttractionName() {

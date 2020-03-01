@@ -92,7 +92,7 @@ public class SignupActivity extends AppCompatActivity {
             View v = layAdmin.getChildAt(i);
             v.setEnabled(isVisible);
             if (v instanceof TextView) {
-                if(isVisible == true) {
+                if(isVisible) {
                     ((TextView) v).setTextColor(Color.BLACK);
                 }
                 else {
@@ -103,11 +103,15 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private boolean chkIfUserDBIsEmpty() {
-        List<User> l = LoginActivity.dbConnection.userDao().getallUsers();
-        if (l.size() == 0) {
+        List<User> usersList = LoginActivity.dbConnection.userDao().getallUsers();
+        if (usersList.size() == 0) {
             return true;
         }
         else {
+            Log.d(TAG, "chkIfUserDBIsEmpty: --- List of users in database ---");
+            for(User u : usersList) {
+                Log.d(TAG, "chkIfUserDBIsEmpty: " + u.toString());
+            }
             return false;
         }
     }
@@ -206,19 +210,33 @@ public class SignupActivity extends AppCompatActivity {
         String email = ((EditText) findViewById(R.id.editEmailSignup)).getText().toString().trim();
         String pass = ((EditText) findViewById(R.id.editPasswordSignup)).getText().toString();
 
-        // Check if a user with the same email already exists in the database
-        List<User> userList = LoginActivity.dbConnection.userDao().getUserByEmail(email);
-        if(userList.size() == 0) {
-            // Create a user based on the entries
-            User u = new User(name, email, pass, isAdmin);
-            // Add user to user table.
-            LoginActivity.dbConnection.userDao().addUser(u);
+//        // Check if a user with the same email already exists in the database
+//        List<User> userList = LoginActivity.dbConnection.userDao().getUserByEmail(email);
+//        if(userList.size() == 0) {
+//
+//            // Create a user based on the entries
+//            User u = new User(email, name, pass, isAdmin);
+//            // Add user to user table.
+//            long rowId = LoginActivity.dbConnection.userDao().addUser(u);
+//
+//            Log.d(TAG, "addUserToDatabase: User " + u.toString() + " with row_id#: " + rowId + " was added to database.");
+//        }
+//        else {
+//            showAlertDialogMessage("Registration error!", "A user with the same email address already exists!");
+//            Log.d(TAG, "addUserToDatabase: User was not added to database.");
+//            addIsSuccessful = false;
+//        }
 
-            Log.d(TAG, "addUserToDatabase: User " + u.toString() + " was added to database.");
+        // Add user to user table.
+        User u = new User(email, name, pass, isAdmin);
+        long rowId = LoginActivity.dbConnection.userDao().addUser(u);
+        if(rowId > 0) {
+            // User was successfully added to table
+            Log.d(TAG, "addUserToDatabase: User " + u.toString() + " with row_id#: " + rowId + " was added to database. (rowID = " + rowId + ")");
         }
         else {
             showAlertDialogMessage("Registration error!", "A user with the same email address already exists!");
-            Log.d(TAG, "addUserToDatabase: User was not added to database.");
+            Log.d(TAG, "addUserToDatabase: User already exists and was not added to database. (rowID = " + rowId + ")");
             addIsSuccessful = false;
         }
 

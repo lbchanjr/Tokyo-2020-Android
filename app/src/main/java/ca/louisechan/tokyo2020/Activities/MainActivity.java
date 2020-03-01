@@ -57,10 +57,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         Intent intent = getIntent();
-        int userID = intent.getIntExtra("loggedUserID", 0);
+        String email = intent.getStringExtra("loggedEmail");
 
         // Retrieve user info from database
-        List<User> userList = LoginActivity.dbConnection.userDao().getUserWithID(userID);
+        List<User> userList = LoginActivity.dbConnection.userDao().getUserByEmail(email);
         currentUser = userList.get(0);
     }
 

@@ -3,6 +3,8 @@ package ca.louisechan.tokyo2020.Activities;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -64,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         if (dbConnection == null) {
             Log.d(TAG, "onCreate: Initializing dbConnection.");
             dbConnection = Room.databaseBuilder(getApplicationContext(), Tokyo2020Database.class,
-                    "users").allowMainThreadQueries().build();
+                    "users").addMigrations(MIGRATION_1_2).allowMainThreadQueries().build();
         }
         else {
             Log.d(TAG, "onCreate: dbConnection already initialized.");
@@ -104,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                     updateLoginSharedPrefs();
 
                     // Switching to main activity
-                    switchToMainActivity(u.getId());
+                    switchToMainActivity(userEmail);
 
 //                    // Password is a match. Check if user is an admin user.
 //                    if(u.getAdmin()) {
@@ -119,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
 //                            public void onClick(DialogInterface dialog, int which) {
 //                                Log.d(TAG, "onClick: Admin user: Switching to admin user interface");
 ////                                // Switching to main activity
-////                                switchToMainActivity(u.getId());
+////                                switchToMainActivity(userEmail);
 ////                                Toast t = Toast.makeText(getApplicationContext(), "Switching to admin interface!", Toast.LENGTH_SHORT);
 ////                                t.show();
 //                            }
@@ -130,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
 //                            public void onClick(DialogInterface dialog, int which) {
 //                                Log.d(TAG, "onClick: Admin user -> Switching to regular user interface");
 ////                                // Switching to main activity
-////                                switchToMainActivity(u.getId());
+////                                switchToMainActivity(userEmail);
 ////                                Toast t = Toast.makeText(getApplicationContext(), "Switching to regular user interface", Toast.LENGTH_SHORT);
 ////                                t.show();
 //                            }
@@ -141,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
 //                    }
 //                    else {
 ////                        // Switching to main activity
-////                        switchToMainActivity(u.getId());
+////                        switchToMainActivity(userEmail);
 //                        Log.d(TAG, "loginButtonClicked: Regular user -> Switching to User activity!");
 //                        //Toast t = Toast.makeText(getApplicationContext(), "Switching to regular user interface", Toast.LENGTH_SHORT);
 //                        //t.show();
@@ -161,9 +163,9 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void switchToMainActivity(int userID) {
+    public void switchToMainActivity(String email) {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("loggedUserID", userID);
+        intent.putExtra("loggedEmail", email);
         startActivity(intent);
     }
 
@@ -209,21 +211,22 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SignupActivity.class);
         startActivity(intent);
     }
-    
-/*
-    public void deleteAllUsers(View view) {
-        List<User> users = dbConnection.userDao().getallUsers();
-        if(users.size() == 0) {
-            Toast.makeText(this, "User database is empty!", Toast.LENGTH_SHORT).show();
+
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE `users_copy` (`email` TEXT NOT NULL, "
+                    + "`name` TEXT, `password` TEXT, `is_admin` INTEGER, PRIMARY KEY(`email`))");
+
+            database.execSQL("INSERT INTO users_copy (email, name, password, is_admin) " +
+                    "SELECT email, name, password, isAdmin FROM " +
+                    "(SELECT MIN(id) as id, email, name, password, isAdmin FROM users GROUP BY email)");
+
+            database.execSQL("DROP TABLE users");
+
+            database.execSQL("ALTER TABLE users_copy RENAME TO users");
         }
-        else {
-            for (User u : users) {
-                dbConnection.userDao().deleteUser(u);
-                Log.d(TAG, "deleteAllUsers: Deleted user: " + u.toString() + " with ID = " + u.getId());
-            }
-        }
-    }
-*/
+    };
 
     public void deleteAllUsers2(View view) {
         dbConnection.userDao().deleteAllUsers();

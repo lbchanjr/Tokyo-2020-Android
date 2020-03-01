@@ -14,31 +14,31 @@ import ca.louisechan.tokyo2020.Models.Rating;
 public interface RatingDAO {
     // Insert record into database
     @Insert
-    public void addRating(Rating r);
+    void addRating(Rating r);
 
     // delete from database
     @Delete
-    public void deleteRating(Rating r);
+    void deleteRating(Rating r);
 
     // delete table
     @Query("DELETE FROM ratings")
-    public void deleteAllRatings();
+    void deleteAllRatings();
 
     @Update
-    public void updateRating(Rating r);
+    void updateRating(Rating r);
 
     @Query("Select * from ratings")
-    public List<Rating> getallRatings();
+    List<Rating> getallRatings();
 
     @Query("SELECT * FROM ratings " +
             "WHERE id = :id ")
-    public List<Rating> getRatingByID(int id);
+    List<Rating> getRatingByID(int id);
 
     @Query("SELECT * FROM ratings " +
             "WHERE attraction_name = :attraction ")
-    public List<Rating> getRatingsByAttraction(String attraction);
+    List<Rating> getRatingsByAttraction(String attraction);
 
     @Query("SELECT * FROM ratings " +
-            "WHERE user_id = :id ")
-    public List<Rating> getRatingsByUserID(int id);
+            "WHERE user_email = :email ")
+    List<Rating> getRatingsByUserEmail(String email);
 }

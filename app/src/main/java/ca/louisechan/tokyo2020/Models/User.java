@@ -1,37 +1,45 @@
 package ca.louisechan.tokyo2020.Models;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity (tableName = "users")
 public class User {
-    @PrimaryKey (autoGenerate = true)
-    private int id;
-    private String name;
+    @PrimaryKey
+    @NonNull
     private String email;
+    private String name;
     private String password;
+    @ColumnInfo(name = "is_admin")
     private Boolean isAdmin;
 
-    public User(String name, String email, String password, Boolean isAdmin) {
-        this.name = name;
+    public User(@NonNull String email, String name, String password, Boolean isAdmin) {
         this.email = email;
+        this.name = name;
         this.password = password;
         this.isAdmin = isAdmin;
     }
 
     @Ignore
-    public User(int id) {
-        this.id = id;
+    public User(@NonNull String email) {
+        this.email = email;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+//    @Ignore
+//    public User(int id) {
+//        this.id = id;
+//    }
+//
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public String getName() {
         return name;
@@ -41,11 +49,11 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
+    public @NonNull String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(@NonNull String email) {
         this.email = email;
     }
 
@@ -68,6 +76,6 @@ public class User {
     @Override
     public String toString() {
         return "[Name: " + getName() + ", Email: " + getEmail() +
-                "User type: " + (getAdmin() ? "Admin User":"Regular User") + "]";
+                ", Type: " + (getAdmin() ? "Admin User":"Regular User") + "]";
     }
 }
