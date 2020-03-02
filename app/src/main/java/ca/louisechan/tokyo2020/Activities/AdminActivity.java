@@ -2,8 +2,10 @@ package ca.louisechan.tokyo2020.Activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,6 +50,8 @@ public class AdminActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int selectedMenuitem = item.getItemId();
 
+        AlertDialog.Builder popupBox;
+
         switch (selectedMenuitem) {
             case R.id.admin_mi_logout:
                 Log.d(TAG, "onOptionsItemSelected: Exitting to log-in screen");
@@ -64,6 +68,92 @@ public class AdminActivity extends AppCompatActivity {
                 intentMain.putExtra("loggedEmail", loggedEmail);
                 startActivity(intentMain);
                 return true;
+
+//            case R.id.admin_mi_delete_users:
+//                Log.d(TAG, "onOptionsItemSelected: Deleting all users in database");
+//
+//                //popupBox = new AlertDialog.Builder(getApplicationContext());
+//                popupBox = new AlertDialog.Builder(new ContextThemeWrapper(getBaseContext(), R.style.AppTheme2));
+//                popupBox.setTitle("Deleting 'users' table...");
+//                popupBox.setMessage("Are you sure about this?");
+//                popupBox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        // Confirm deletion of all users
+//                        LoginActivity.dbConnection.userDao().deleteAllUsers();
+//                        Log.d(TAG, "onClick: users table was deleted");
+//                    }
+//                });
+//
+//                // Do nothing if NO is clicked
+//                popupBox.setNegativeButton("No", null);
+//                popupBox.show();
+//                return true;
+//
+//
+//            case R.id.admin_mi_delete_attractions:
+//                Log.d(TAG, "onOptionsItemSelected: Deleting all attractions in database");
+//
+//                //popupBox = new AlertDialog.Builder(getApplicationContext());
+//                popupBox = new AlertDialog.Builder(new ContextThemeWrapper(getBaseContext(), R.style.AppTheme2));
+//                popupBox.setTitle("Deleting 'attractions' table...");
+//                popupBox.setMessage("Are you sure about this?");
+//                popupBox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        // Confirm deletion of attractions table
+//                        LoginActivity.dbConnection.attractionDao().deleteAllAttractions();
+//                        Log.d(TAG, "onClick: attractions table was deleted");
+//                    }
+//                });
+//
+//                // Do nothing if NO is clicked
+//                popupBox.setNegativeButton("No", null);
+//                popupBox.show();
+//                return true;
+//
+//            case R.id.admin_mi_delete_wishlists:
+//                Log.d(TAG, "onOptionsItemSelected: Deleting all wishlists in database");
+//
+//                //popupBox = new AlertDialog.Builder(getApplicationContext());
+//                popupBox = new AlertDialog.Builder(new ContextThemeWrapper(getBaseContext(), R.style.AppTheme2));
+//                popupBox.setTitle("Deleting 'wishlists' table...");
+//                popupBox.setMessage("Are you sure about this?");
+//                popupBox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        // Confirm deletion of all wishlists
+//                        LoginActivity.dbConnection.wishlistDao().deleteAllWishlists();
+//                        Log.d(TAG, "onClick: wishlists table was deleted");
+//                    }
+//                });
+//
+//                // Do nothing if NO is clicked
+//                popupBox.setNegativeButton("No", null);
+//                popupBox.show();
+//                return true;
+//
+//            case R.id.admin_mi_delete_ratings:
+//                Log.d(TAG, "onOptionsItemSelected: Deleting all ratings in database");
+//
+//                //popupBox = new AlertDialog.Builder(getApplicationContext());
+//                popupBox = new AlertDialog.Builder(new ContextThemeWrapper(getBaseContext(), R.style.AppTheme2));
+//
+//                popupBox.setTitle("Deleting 'ratings' table...");
+//                popupBox.setMessage("Are you sure about this?");
+//                popupBox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        // Confirm deletion of all ratings
+//                        LoginActivity.dbConnection.ratingDao().deleteAllRatings();
+//                        Log.d(TAG, "onClick: ratings table was deleted");
+//                    }
+//                });
+//
+//                // Do nothing if NO is clicked
+//                popupBox.setNegativeButton("No", null);
+//                popupBox.show();
+//                return true;
 
         }
 
@@ -114,6 +204,18 @@ public class AdminActivity extends AppCompatActivity {
                 // Copy brief description to detailed description.
                 edtDetailDesc.setText(briefDesc);
             }
+            else {
+                a.setDetailedDesc(edtDetailDesc.getText().toString());
+            }
+
+            EditText editImgLink = (EditText) findViewById(R.id.editAttImageURL);
+            EditText editVideoLink = (EditText) findViewById(R.id.editAttVideoURL);
+            EditText editVisitFee = (EditText) findViewById(R.id.editAttVisitFee);
+
+            double fee = Double.parseDouble(editVisitFee.getText().toString());
+            a.setVisitFee(fee);
+            a.setImageUrl(editImgLink.getText().toString().trim());
+            a.setYoutubeUrl(editVideoLink.getText().toString().trim());
 
             // Add record to attractions table
             long rowId = LoginActivity.dbConnection.attractionDao().addAttraction(a);

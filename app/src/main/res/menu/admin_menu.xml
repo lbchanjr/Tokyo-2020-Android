@@ -6,6 +6,28 @@
         android:title="@string/switch_to_default_ui"
         app:showAsAction="never"/>
 
+<!--
+    <item
+        android:id="@+id/admin_mi_delete_users"
+        android:title="Delete all users"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/admin_mi_delete_attractions"
+        android:title="Delete all attractions"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/admin_mi_delete_ratings"
+        android:title="Delete all ratings"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/admin_mi_delete_wishlists"
+        android:title="Delete all wishlists"
+        app:showAsAction="never"/>
+-->
+
     <item
         android:id="@+id/admin_mi_logout"
         android:title="@string/logout"

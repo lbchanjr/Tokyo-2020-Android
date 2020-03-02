@@ -79,8 +79,8 @@
             android:hint="Enter address"
             android:gravity="top"
             android:id="@+id/editAttAddress"
-            android:maxLines="3"
-            android:layout_weight="10"/>
+            android:maxLines="1"
+            android:imeOptions="actionNext"/>
 
         <TextView
             android:layout_marginTop="5dp"
@@ -145,10 +145,9 @@
             android:background="@drawable/edittext_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="e.g. 10.00 -or- 0 (FREE)"
+            android:hint="Enter amount in CAD -or- 0 (FREE)"
             android:id="@+id/editAttVisitFee"
             android:maxLines="1"
-            android:inputType="number"
             android:imeOptions="actionNext"/>
 
         <TextView
