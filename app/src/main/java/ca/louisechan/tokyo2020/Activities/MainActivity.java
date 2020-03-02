@@ -379,6 +379,11 @@ public class MainActivity extends AppCompatActivity
         popupBox.show();
     }
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+
     public void setSMSData(String message, String recipient) {
         this.message = message;
         this.recipient = recipient;
