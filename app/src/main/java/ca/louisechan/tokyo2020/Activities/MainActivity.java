@@ -46,6 +46,7 @@ import java.util.List;
 import ca.louisechan.tokyo2020.Fragments.AttractionListFragment;
 import ca.louisechan.tokyo2020.Fragments.HomeFragment;
 import ca.louisechan.tokyo2020.Fragments.RatingsFragment;
+import ca.louisechan.tokyo2020.Fragments.ReminderFragment;
 import ca.louisechan.tokyo2020.Fragments.SendEmailFragment;
 import ca.louisechan.tokyo2020.Fragments.SendSMSFragment;
 import ca.louisechan.tokyo2020.Fragments.ViewAllSkedsFragment;
@@ -67,6 +68,12 @@ public class MainActivity extends AppCompatActivity
     private static int year = 2020;
     private static int month = 06;          // month = July (Jan starts at 0 so 6 is July)
     private static int dayOfMonth = 22;
+
+    private int reminderHour;
+    private int reminderMinute;
+    private int reminderYear;
+    private int reminderMonth;
+    private int reminderDay;
 
     private User currentUser;
     
@@ -282,7 +289,7 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_set_reminder) {
             Log.d(TAG, "onNavigationItemSelected: Set reminder menu item was clicked!");
-            ft.replace(R.id.frame_main_content, new HomeFragment());
+            ft.replace(R.id.frame_main_content, new ReminderFragment());
         }
         else {
             DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -415,4 +422,34 @@ public class MainActivity extends AppCompatActivity
     public int getSelectedDayOfMonth() {
         return dayOfMonth;
     }
+
+    public void setReminderTimeFromPicker(int hourOfDay, int minute) {
+        reminderHour = hourOfDay;
+        reminderMinute = minute;
+    }
+
+    public void setReminderDateFromPicker(int year, int month, int dayOfMonth) {
+        reminderYear = year;
+        reminderMonth = month;
+        reminderDay = dayOfMonth;
+    }
+
+    public int getReminderYear() {
+        return reminderYear;
+    }
+    public int getReminderMonth() {
+        return reminderMonth;
+    }
+    public int getReminderDay() {
+        return reminderDay;
+    }
+
+    public int getReminderHour() {
+        return reminderHour;
+    }
+    public int getReminderMinute() {
+        return reminderMinute;
+    }
+
+
 }
