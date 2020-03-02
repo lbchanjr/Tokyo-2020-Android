@@ -66,13 +66,15 @@ public class AttractionAdapter extends ArrayAdapter {
         txtAttrName.setText(name);
         txtAttrAddr.setText(address);
         txtAttrBriefDesc.setText(briefDesc);
-        if (!imgUrl.isEmpty()) {
-            // Set image view with the attraction picture url
-
-//            Picasso.get().load(imgUrl).into(imgAttrImage);
-            Uri imgUri = Uri.parse(imgUrl);
-            imgAttrImage.setImageURI(imgUri);
-        }
+// TEMPORARILY DISABLED IMAGE LOADING IN LIST
+//        if (!imgUrl.isEmpty()) {
+//            // Set image view with the attraction picture url
+//            //Picasso.get().load(imgUrl).into(imgAttrImage);
+//            Picasso.with(context).load(imgUrl).into(imgAttrImage);
+//
+////            Uri imgUri = Uri.parse(imgUrl);
+////            imgAttrImage.setImageURI(imgUri);
+//        }
 
 
         // Return the view with updated items

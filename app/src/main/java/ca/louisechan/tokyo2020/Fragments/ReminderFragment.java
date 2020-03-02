@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -65,8 +66,20 @@ public class ReminderFragment extends Fragment {
         final int hour = ma.getReminderHour();
         final int minute = ma.getReminderMinute();
 
-        String reminderTime = String.format("%02d", hour) + ":" + String.format("%02d", minute);
-        String reminderDate = Integer.toString(year) + "-" + String.format("%02d", month) + "-" + String.format("%02d", dayOfMonth);
+        int hourAMPM = hour;
+        boolean isAM = true;
+
+        if(hourAMPM == 0) {
+            hourAMPM = 12;
+        }
+
+        if(hourAMPM > 12) {
+            hourAMPM -= 12;
+            isAM = false;
+        }
+
+        String reminderTime = String.format("%d", hourAMPM) + ":" + String.format("%02d", minute) + (isAM ? " AM" : " PM");
+        String reminderDate = Integer.toString(year) + "-" + String.format("%02d", month+1) + "-" + String.format("%02d", dayOfMonth);
         txtReminderDateSelected.setText(reminderDate);
         txtReminderTimeSelected.setText(reminderTime);
 
@@ -83,6 +96,8 @@ public class ReminderFragment extends Fragment {
                 intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
                 intent.putExtra("title", "Game reminder from Tokyo 2020 app");
                 startActivity(intent);
+
+                Toast.makeText(getContext(), "A reminder has now been set in the Calendar app.", Toast.LENGTH_SHORT).show();
             }
         });
 

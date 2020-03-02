@@ -36,11 +36,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.List;
 
 import ca.louisechan.tokyo2020.Fragments.AttractionListFragment;
@@ -69,11 +71,11 @@ public class MainActivity extends AppCompatActivity
     private static int month = 06;          // month = July (Jan starts at 0 so 6 is July)
     private static int dayOfMonth = 22;
 
-    private int reminderHour;
-    private int reminderMinute;
-    private int reminderYear;
-    private int reminderMonth;
-    private int reminderDay;
+    private static int reminderHour;
+    private static int reminderMinute;
+    private static int reminderYear = 2020;
+    private static int reminderMonth = 0;
+    private static int reminderDay = 1;
 
     private User currentUser;
     
@@ -85,6 +87,13 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Calendar c = Calendar.getInstance();
+        reminderHour = c.get(Calendar.HOUR_OF_DAY);
+        reminderMinute = c.get(Calendar.MINUTE);
+        reminderYear = c.get(Calendar.YEAR);
+        reminderMonth = c.get(Calendar.MONTH);
+        reminderDay = c.get(Calendar.DAY_OF_MONTH);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -426,12 +435,20 @@ public class MainActivity extends AppCompatActivity
     public void setReminderTimeFromPicker(int hourOfDay, int minute) {
         reminderHour = hourOfDay;
         reminderMinute = minute;
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frame_main_content, new ReminderFragment());
+        ft.commit();
     }
 
     public void setReminderDateFromPicker(int year, int month, int dayOfMonth) {
         reminderYear = year;
         reminderMonth = month;
         reminderDay = dayOfMonth;
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frame_main_content, new ReminderFragment());
+        ft.commit();
     }
 
     public int getReminderYear() {
@@ -450,6 +467,5 @@ public class MainActivity extends AppCompatActivity
     public int getReminderMinute() {
         return reminderMinute;
     }
-
 
 }

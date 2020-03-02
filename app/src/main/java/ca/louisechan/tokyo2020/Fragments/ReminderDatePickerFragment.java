@@ -25,7 +25,10 @@ public class ReminderDatePickerFragment extends DialogFragment implements DatePi
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new DatePickerDialog(getActivity(), this, 2020, 0, 01);
+        MainActivity m = (MainActivity) getActivity();
+
+
+        return new DatePickerDialog(getActivity(), this, m.getReminderYear(), m.getReminderMonth(), m.getReminderDay());
     }
 
     @Override

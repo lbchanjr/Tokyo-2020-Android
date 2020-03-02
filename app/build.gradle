@@ -40,7 +40,8 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.squareup.picasso:picasso:2.6.0-SNAPSHOT'
+    //implementation 'com.squareup.picasso:picasso:2.71828'
     // For Kotlin use kapt instead of annotationProcessor
 
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
