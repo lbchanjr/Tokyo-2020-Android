@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity
     private String recipient;
 
     private User currentUser;
+    
+    private boolean initialHomeScreenSet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +102,17 @@ public class MainActivity extends AppCompatActivity
         title.setText("Hello, " + currentUser.getName());
         TextView subtitle = (TextView) headerView.findViewById(R.id.navhead_subtitle);
         subtitle.setText(currentUser.getEmail());
+        
+        // Check if we need to load the home screen
+        if(!initialHomeScreenSet) {
+            Log.d(TAG, "onCreate: Home screen loaded for the first time!");
+            // Indicate that home screen has been loaded at least once.
+            initialHomeScreenSet = true;
+            switchToHomeScreen();
+        }
+        else {
+            Log.d(TAG, "onCreate: Home screen loading skipped during MainActivity oncreate call.");
+        }
     }
 
     @Override
@@ -145,6 +158,11 @@ public class MainActivity extends AppCompatActivity
         }
         else if(id == R.id.action_admin) {
             Log.d(TAG, "onOptionsItemSelected: Switching to admin UI activity.");
+
+            // Switch to admin interface. Pass email address of logged user.
+            Intent intent = new Intent(this, AdminActivity.class);
+            intent.putExtra("loggedEmail", currentUser.getEmail());
+            startActivity(intent);
             return true;
         }
         else if(id == R.id.action_contact_us) {
@@ -235,6 +253,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             Log.d(TAG, "onNavigationItemSelected: Home menu item was clicked!");
+            switchToHomeScreen();
         }
         else if (id == R.id.nav_list_attractions) {
             Log.d(TAG, "onNavigationItemSelected: List attractions menu item was clicked!");
