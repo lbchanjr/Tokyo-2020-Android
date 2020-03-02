@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="100"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:background="@android:color/holo_blue_bright"
+    tools:context=".Fragments.SendSMSFragment">
+
+    <TextView
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send an SMS"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recipient"
+        android:textSize="17sp"
+        android:textStyle="italic"
+        android:textColor="@android:color/black"/>
+
+    <EditText
+        android:id="@+id/editSMSRecipient"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edittext_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="+81-3-5321-3077"
+        android:imeOptions="actionNext"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Message"
+            android:textStyle="italic"
+            android:textSize="17sp"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/textCharsLeftSMS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:text="160 characters left" />
+
+    </LinearLayout>
+
+    <EditText
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:id="@+id/editSMSMessage"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edittext_box"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:maxLength="160"
+        android:layout_weight="50"
+        android:gravity="top"
+        android:hint="Type message"
+        android:imeOptions="actionDone"/>
+
+    <Button
+        android:layout_marginTop="8dp"
+        android:id="@+id/buttonSendSMS"
+        android:layout_gravity="left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="70dp"
+        android:paddingRight="70dp"
+        android:text="Send"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:textColor="@android:color/holo_red_light"
+        android:text="WARNING: SMS charges may apply."
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+</LinearLayout>

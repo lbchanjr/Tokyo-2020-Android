@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="100"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:background="@android:color/holo_blue_dark"
+    tools:context=".Fragments.SendEmailFragment">
+
+    <TextView
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send an email"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recipient"
+        android:textSize="17sp"
+        android:textStyle="italic"
+        android:textColor="@android:color/black"/>
+
+    <EditText
+        android:id="@+id/editEmailRecipient"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edittext_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="info@tokyo-tourism.jp"
+        android:imeOptions="actionNext"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Subject"
+        android:textStyle="italic"
+        android:textSize="17sp"
+        android:textColor="@android:color/black"/>
+
+    <EditText
+        android:id="@+id/editEmailSubject"
+        android:layout_marginTop="8dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/edittext_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:imeOptions="actionNext"
+        android:hint="Type email subject"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Message"
+            android:textStyle="italic"
+            android:textSize="17sp"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:id="@+id/textCharsLeft"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:text="1000 characters left" />
+
+    </LinearLayout>
+
+    <EditText
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:id="@+id/editEmailMessage"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edittext_box"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:maxLength="1000"
+        android:layout_weight="100"
+        android:gravity="top"
+        android:hint="Type message body"
+        android:imeOptions="actionDone"/>
+
+    <Button
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="30dp"
+        android:id="@+id/buttonSendEmail"
+        android:layout_gravity="left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="70dp"
+        android:paddingRight="70dp"
+        android:text="Send"
+        android:textAllCaps="false" />
+
+</LinearLayout>

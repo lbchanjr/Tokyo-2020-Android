@@ -2,6 +2,7 @@ package ca.louisechan.tokyo2020.Activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -31,14 +33,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.Menu;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
+import ca.louisechan.tokyo2020.Fragments.HomeFragment;
+import ca.louisechan.tokyo2020.Fragments.SendEmailFragment;
+import ca.louisechan.tokyo2020.Fragments.SendSMSFragment;
 import ca.louisechan.tokyo2020.Models.User;
 import ca.louisechan.tokyo2020.R;
 
@@ -46,9 +53,12 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
     // Unique permission code for call and sms intents
-    private static final int CALL_PERMISSION_CODE = 100;
-    private static final int SMS_PERMISSION_CODE = 101;
+    public static final int CALL_PERMISSION_CODE = 100;
+    public static final int SMS_PERMISSION_CODE = 101;
     private static final String TOKYO_TOURIST_CENTER_NUMBER = "+81-3-5321-3077";
+
+    private String message;
+    private String recipient;
 
     private User currentUser;
 
@@ -171,10 +181,16 @@ public class MainActivity extends AppCompatActivity
         }
         else if(id == R.id.action_email) {
             Log.d(TAG, "onOptionsItemSelected: Contact us by email was clicked.");
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frame_main_content, new SendEmailFragment());
+            ft.commit();
             return true;
         }
         else if(id == R.id.action_sms) {
             Log.d(TAG, "onOptionsItemSelected: Contact us by SMS was clicked.");
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frame_main_content, new SendSMSFragment());
+            ft.commit();
             return true;
         }
 
@@ -182,23 +198,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void callPhoneButtonPressed() {
-        // Check permissions for call
-/*
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)
-                == PackageManager.PERMISSION_DENIED) {
-
-            // Requesting the permission
-            ActivityCompat.requestPermissions(this,
-                    new String[] { Manifest.permission.CALL_PHONE },
-                    CALL_PERMISSION_CODE);
-        }
-        else {
-            Log.d(TAG, "callPhoneButtonPressed: Call permission already granted.");
-
-            // Call number
-            callTouristInfoCenter();
-        }
-*/
         // Check if calls are allowed for this app.
         if(checkAppPermission(Manifest.permission.CALL_PHONE, CALL_PERMISSION_CODE)
                 != PackageManager.PERMISSION_DENIED) {
@@ -264,45 +263,32 @@ public class MainActivity extends AppCompatActivity
     // Request Code is used to check which permission called this function.
     // This request code is provided when the user is prompt for permission.
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grantResults)
-    {
-        super.onRequestPermissionsResult(requestCode,
-                permissions,
-                grantResults);
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == CALL_PERMISSION_CODE) {
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(MainActivity.this,
-                        "Call Permission Granted",
-                        Toast.LENGTH_SHORT)
-                        .show();
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(MainActivity.this, "Call Permission Granted", Toast.LENGTH_SHORT).show();
 
                 // Call tourist information center number
                 callTouristInfoCenter();
             }
             else {
-                Toast.makeText(this,
-                        "Call Permission Denied",
-                        Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(this, "Call Permission Denied", Toast.LENGTH_SHORT).show();
             }
         }
+
         if (requestCode == SMS_PERMISSION_CODE) {
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.d(TAG, "onRequestPermissionsResult: SMS Permission granted");
 
-                // TODO: Send sms here!!!
+                // Send SMS message to tourist info center
+                sendSMSMessage(recipient, message);
 
             }
             else {
-                Toast.makeText(this,
-                        "SMS Permission Denied",
-                        Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(this, "SMS Permission Denied", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -329,5 +315,42 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public void sendSMSMessage(String recipient, String message) {
+        // Configure the SMSC (Short Message Service Center)
+        String scAddress = null;
+
+        // Create the intent
+        PendingIntent sentIntent = null;
+        PendingIntent deliveryIntent = null;
+
+        // Send the SMS using SMSManager (built in android class)
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(recipient, scAddress, message, sentIntent, deliveryIntent);
+
+        AlertDialog.Builder popupBox = new AlertDialog.Builder(this);
+
+        // Show popup box confirming the call
+        popupBox.setMessage("Message sent to " + recipient + ".");
+        popupBox.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Return to home screen after user presses the OK button
+                switchToHomeScreen();
+            }
+        });
+        popupBox.show();
+    }
+
+    public void setSMSData(String message, String recipient) {
+        this.message = message;
+        this.recipient = recipient;
+    }
+
+    public void switchToHomeScreen() {
+        // Return to home screen
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frame_main_content, new HomeFragment());
+        ft.commit();
+    }
 
 }
