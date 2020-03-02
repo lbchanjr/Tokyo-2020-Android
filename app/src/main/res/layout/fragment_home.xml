@@ -7,12 +7,11 @@
     android:background="@android:color/holo_green_dark"
     tools:context=".Fragments.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:text="Welcome to HOME screen" />
+        android:id="@+id/webViewId">
+
+    </WebView>
 
 </LinearLayout>

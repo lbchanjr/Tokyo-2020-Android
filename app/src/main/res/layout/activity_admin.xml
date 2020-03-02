@@ -171,8 +171,9 @@
             android:hint="Enter a short description of the attraction."
             android:gravity="top"
             android:id="@+id/editAttBriefDesc"
-            android:maxLines="1"
+            android:maxLines="2"
             android:maxLength="100"
+            android:layout_weight="10"
             android:imeOptions="actionNext" />
 
         <TextView

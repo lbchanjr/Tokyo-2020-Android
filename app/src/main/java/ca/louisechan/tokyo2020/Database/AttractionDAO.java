@@ -3,6 +3,7 @@ package ca.louisechan.tokyo2020.Database;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -13,8 +14,8 @@ import ca.louisechan.tokyo2020.Models.Attraction;
 @Dao
 public interface AttractionDAO {
     // Insert record into database
-    @Insert
-    void addAttraction(Attraction a);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    long addAttraction(Attraction a);
 
     // delete from database
     @Delete
