@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,14 @@ import ca.louisechan.tokyo2020.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class ViewSkedByDayFragment extends Fragment {
+    private static final String TAG = "ViewSkedByDayFragment";
 
     private View view;
     private WebView webView;
+    private static final String SKED_BYDAY_BASEURL = "https://tokyo2020.org/en/schedule/";
 
-    public HomeFragment() {
+    public ViewSkedByDayFragment() {
         // Required empty public constructor
     }
 
@@ -29,15 +32,16 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view  = inflater.inflate(R.layout.fragment_view_sked_by_day, container, false);
 
-        view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        webView = (WebView) view.findViewById(R.id.webViewId);
+        webView = (WebView) view.findViewById(R.id.webViewSkedsByDay);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("https://tokyo2020.org/en/");
+        String url = SKED_BYDAY_BASEURL + "20200722-schedule";
+        Log.d(TAG, "onCreateView: url to load is: " + url);
+        webView.loadUrl(url);
 
-        // Inflate the layout for this fragment
         return view;
     }
 
@@ -50,6 +54,5 @@ public class HomeFragment extends Fragment {
             webView.destroy();
         }
     }
-
 
 }

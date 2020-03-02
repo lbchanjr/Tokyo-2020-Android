@@ -16,12 +16,12 @@ import ca.louisechan.tokyo2020.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
+public class ViewAllSkedsFragment extends Fragment {
 
     private View view;
     private WebView webView;
 
-    public HomeFragment() {
+    public ViewAllSkedsFragment() {
         // Required empty public constructor
     }
 
@@ -29,15 +29,14 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view  = inflater.inflate(R.layout.fragment_view_all_skeds, container, false);
 
-        view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        webView = (WebView) view.findViewById(R.id.webViewId);
+        webView = (WebView) view.findViewById(R.id.webViewAllSkeds);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("https://tokyo2020.org/en/");
+        webView.loadUrl("https://tokyo2020.org/en/schedule/");
 
-        // Inflate the layout for this fragment
         return view;
     }
 
@@ -50,6 +49,5 @@ public class HomeFragment extends Fragment {
             webView.destroy();
         }
     }
-
 
 }

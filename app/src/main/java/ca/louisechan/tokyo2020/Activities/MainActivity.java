@@ -46,6 +46,8 @@ import java.util.List;
 import ca.louisechan.tokyo2020.Fragments.HomeFragment;
 import ca.louisechan.tokyo2020.Fragments.SendEmailFragment;
 import ca.louisechan.tokyo2020.Fragments.SendSMSFragment;
+import ca.louisechan.tokyo2020.Fragments.ViewAllSkedsFragment;
+import ca.louisechan.tokyo2020.Fragments.ViewSkedByDayFragment;
 import ca.louisechan.tokyo2020.Models.User;
 import ca.louisechan.tokyo2020.R;
 
@@ -70,16 +72,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        // TODO Implement this function in admin interface
-        //        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -251,27 +243,48 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        // Return to home screen
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
         if (id == R.id.nav_home) {
             Log.d(TAG, "onNavigationItemSelected: Home menu item was clicked!");
             switchToHomeScreen();
         }
         else if (id == R.id.nav_list_attractions) {
             Log.d(TAG, "onNavigationItemSelected: List attractions menu item was clicked!");
+            ft.replace(R.id.frame_main_content, new HomeFragment());
 
-        } else if (id == R.id.nav_wishlist) {
-            Log.d(TAG, "onNavigationItemSelected: List wishlist menu item was clicked!");
-
-        } else if (id == R.id.nav_ratings) {
-            Log.d(TAG, "onNavigationItemSelected: List ratings menu item was clicked!");
-
-        } else if (id == R.id.nav_view_all_sked) {
-            Log.d(TAG, "onNavigationItemSelected: View all sked menu item was clicked!");
-
-        } else if (id == R.id.nav_view_sked_by_day) {
-            Log.d(TAG, "onNavigationItemSelected: View sked by day menu item was clicked!");
-        } else if (id == R.id.nav_set_reminder) {
-            Log.d(TAG, "onNavigationItemSelected: Set reminder menu item was clicked!");
         }
+        else if (id == R.id.nav_wishlist) {
+            Log.d(TAG, "onNavigationItemSelected: List wishlist menu item was clicked!");
+            ft.replace(R.id.frame_main_content, new HomeFragment());
+
+        }
+        else if (id == R.id.nav_ratings) {
+            Log.d(TAG, "onNavigationItemSelected: List ratings menu item was clicked!");
+            ft.replace(R.id.frame_main_content, new HomeFragment());
+
+        }
+        else if (id == R.id.nav_view_all_sked) {
+            Log.d(TAG, "onNavigationItemSelected: View all sked menu item was clicked!");
+            ft.replace(R.id.frame_main_content, new ViewAllSkedsFragment());
+
+        }
+        else if (id == R.id.nav_view_sked_by_day) {
+            Log.d(TAG, "onNavigationItemSelected: View sked by day menu item was clicked!");
+            ft.replace(R.id.frame_main_content, new ViewSkedByDayFragment());
+        }
+        else if (id == R.id.nav_set_reminder) {
+            Log.d(TAG, "onNavigationItemSelected: Set reminder menu item was clicked!");
+            ft.replace(R.id.frame_main_content, new HomeFragment());
+        }
+        else {
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
+        }
+
+        ft.commit();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
