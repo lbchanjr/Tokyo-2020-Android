@@ -13,9 +13,24 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
+        android:text="Tokyo 2020 Tourist App"
+        android:textAlignment="center"
+        android:textSize="27sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_marginBottom="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
         android:text="@string/email"/>
     <EditText
+        android:layout_marginTop="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/edittext_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/email_hint"
@@ -26,9 +41,15 @@
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
+        android:textColor="@android:color/black"
         android:text="@string/password"/>
     <EditText
+        android:layout_marginTop="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/edittext_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/password_hint"
@@ -36,6 +57,7 @@
         android:id="@+id/editLoginPassword"/>
 
     <CheckBox
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/remember_me"
@@ -97,6 +119,7 @@
         android:layout_gravity="center"
         android:text="@string/sign_up"/>
 
+<!--
     <Button
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
@@ -104,4 +127,5 @@
         android:text="Delete all users (by query delete)"
         android:padding="10dp"
         android:onClick="deleteAllUsers2"/>
+-->
 </LinearLayout>

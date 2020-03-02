@@ -252,7 +252,9 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
+/*
     public void deleteAllUsers2(View view) {
         dbConnection.userDao().deleteAllUsers();
     }
+*/
 }

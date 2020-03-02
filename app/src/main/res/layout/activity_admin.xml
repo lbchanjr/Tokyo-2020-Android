@@ -19,10 +19,17 @@
         app:title="Tokyo 2020 Admin Interface"/>
 
     <TextView
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Admin interface"
+        android:text="Add a tourist attraction"
         android:textAlignment="center"
         android:textSize="30sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        />
 
 </LinearLayout>
