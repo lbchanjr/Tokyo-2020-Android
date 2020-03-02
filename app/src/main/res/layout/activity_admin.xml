@@ -18,18 +18,212 @@
         android:theme="?attr/actionBarTheme"
         app:title="Tokyo 2020 Admin Interface"/>
 
-    <TextView
-        android:layout_marginTop="20dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add a tourist attraction"
-        android:textAlignment="center"
-        android:textSize="30sp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingRight="25dp"
+        android:paddingLeft="25dp"
+        android:weightSum="100"
+        android:id="@+id/linearAdminFields">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Name"
-        />
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add a tourist attraction"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"/>
 
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="Name"/>
+
+        <EditText
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/edittext_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter attraction name"
+            android:id="@+id/editAttName"
+            android:maxLines="1"
+            android:imeOptions="actionNext"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="Address"/>
+
+        <EditText
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/edittext_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter address"
+            android:gravity="top"
+            android:id="@+id/editAttAddress"
+            android:maxLines="3"
+            android:layout_weight="10"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="Image URL"/>
+
+        <EditText
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/edittext_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter URL of attraction's image"
+            android:id="@+id/editAttImageURL"
+            android:maxLines="1"
+            android:inputType="textUri"
+            android:imeOptions="actionNext"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="Video URL"/>
+
+        <EditText
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/edittext_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter URL of attraction's video"
+            android:id="@+id/editAttVideoURL"
+            android:maxLines="1"
+            android:inputType="textUri"
+            android:imeOptions="actionNext"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="Attraction fee (in CAD)"/>
+
+        <EditText
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/edittext_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="e.g. 10.00 -or- 0 (FREE)"
+            android:id="@+id/editAttVisitFee"
+            android:maxLines="1"
+            android:inputType="number"
+            android:imeOptions="actionNext"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="Brief description"/>
+
+        <EditText
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/edittext_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter a short description of the attraction."
+            android:gravity="top"
+            android:id="@+id/editAttBriefDesc"
+            android:maxLines="1"
+            android:maxLength="100"
+            android:imeOptions="actionNext" />
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="Detailed description"/>
+
+        <EditText
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/edittext_box"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:hint="Enter a detailed description of the attraction."
+            android:gravity="top"
+            android:id="@+id/editAttDetailedDesc"
+            android:maxLength="1000"
+            android:imeOptions="actionDone"
+            android:layout_weight="70"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:onClick="addAttrButtonClicked"
+                android:layout_gravity="center"
+                android:text="Add to database"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:onClick="clrAttrFieldsButtonClicked"
+                android:layout_gravity="center"
+                android:text="Clear form"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

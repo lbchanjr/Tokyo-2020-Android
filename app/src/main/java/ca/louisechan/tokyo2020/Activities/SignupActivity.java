@@ -147,13 +147,15 @@ public class SignupActivity extends AppCompatActivity {
         if (!Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
             Log.d(TAG, "registerButtonClicked: Invalid email inputted.");
             //Toast.makeText(this, "Invalid email! Try again.", Toast.LENGTH_SHORT).show();
-            showAlertDialogMessage("Registration error!", "Invalid email address. Try again.");
+            //showAlertDialogMessage("Registration error!", "Invalid email address. Try again.");
+            editUserEmail.setError("Invalid email address.");
         }
         else {
             Log.d(TAG, "registerButtonClicked: Valid email address: " + userEmail);
             // Check if user passwords are a match
-            if(checkUserPasswordsMatch((EditText) findViewById(R.id.editPasswordSignup),
-                    (EditText) findViewById(R.id.editPasswordConfirmSignup))) {
+            EditText edtPass1 = (EditText) findViewById(R.id.editPasswordSignup);
+            EditText edtPass2 = (EditText) findViewById(R.id.editPasswordConfirmSignup);
+            if(checkUserPasswordsMatch(edtPass1, edtPass2)) {
                 // Passwords are a match!
 
                 // Check if new user is an admin
@@ -176,8 +178,9 @@ public class SignupActivity extends AppCompatActivity {
                             signUpSuccessful = addUserToDatabase(true);
                         }
                         else {
-                            showAlertDialogMessage("Registration error!", "Wrong admin credentials! User can't be registered as admin.");
-                            //Toast.makeText(this, "Wrong admin credentials! User can't be registered as admin.", Toast.LENGTH_SHORT).show();
+                            chkBoxAdmin.setError("Wrong admin credentials! User can't be registered as admin.");
+                            //showAlertDialogMessage("Registration error!", "Wrong admin credentials! User can't be registered as admin.");
+                            Toast.makeText(this, "Wrong admin credentials! User can't be registered as admin.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -188,7 +191,8 @@ public class SignupActivity extends AppCompatActivity {
             }
             else {
                 // Inform user that passwords do not match
-                showAlertDialogMessage("Registration error!", "User passwords do not match. Try again.");
+                edtPass2.setError("User passwords do not match.");
+                //showAlertDialogMessage("Registration error!", "User passwords do not match. Try again.");
                 //Toast.makeText(this, "User passwords do not match! Try again.", Toast.LENGTH_SHORT).show();
             }
 
@@ -232,6 +236,7 @@ public class SignupActivity extends AppCompatActivity {
         long rowId = LoginActivity.dbConnection.userDao().addUser(u);
         if(rowId > 0) {
             // User was successfully added to table
+            Toast.makeText(this, "User account was successfully registered.", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "addUserToDatabase: User " + u.toString() + " with row_id#: " + rowId + " was added to database. (rowID = " + rowId + ")");
         }
         else {

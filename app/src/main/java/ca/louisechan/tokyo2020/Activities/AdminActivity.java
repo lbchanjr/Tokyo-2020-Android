@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import ca.louisechan.tokyo2020.R;
 
@@ -63,5 +66,40 @@ public class AdminActivity extends AppCompatActivity {
 
         // default android code
         return super.onOptionsItemSelected(item);
+    }
+
+    public void clrAttrFieldsButtonClicked(View view) {
+        LinearLayout adminFormFields = (LinearLayout) findViewById(R.id.linearAdminFields);
+
+        for(int i = 0; i < adminFormFields.getChildCount(); i++) {
+            // Check if view is an edittext view
+            View v = adminFormFields.getChildAt(i);
+            if( v instanceof EditText) {
+                // Clear text attribute of all edittext inputs
+                ((EditText) v).setText("");
+            }
+        }
+
+    }
+
+    public void addAttrButtonClicked(View view) {
+        EditText editName = (EditText) findViewById(R.id.editAttName);
+        EditText editAddr = (EditText) findViewById(R.id.editAttAddress);
+        EditText editBriefDesc = (EditText) findViewById(R.id.editAttBriefDesc);
+
+        if(editName.getText().toString().isEmpty()) {
+            editName.setError("Attraction name cannot be empty.");
+        }
+        else if(editAddr.getText().toString().isEmpty()) {
+            editAddr.setError("Attraction address cannot be empty.");
+        }
+        else if(editBriefDesc.getText().toString().isEmpty()) {
+            editBriefDesc.setError("A short description of the attraction is required.");
+        }
+        else {
+            // Add attraction record to attraction database
+            Log.d(TAG, "addAttrButtonClicked: Adding attraction to database.");
+
+        }
     }
 }

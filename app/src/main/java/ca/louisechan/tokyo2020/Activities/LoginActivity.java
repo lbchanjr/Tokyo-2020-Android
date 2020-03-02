@@ -87,7 +87,8 @@ public class LoginActivity extends AppCompatActivity {
         // check if email is a valid one
         if (!Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
             Log.d(TAG, "registerButtonClicked: Invalid email inputted.");
-            Toast.makeText(this, "Invalid email!", Toast.LENGTH_SHORT).show();
+            editEmailLogin.setError("Invalid email input.");
+            //Toast.makeText(this, "Invalid email!", Toast.LENGTH_SHORT).show();
             //showAlertDialogMessage("Log-in error!", "Invalid email address. Try again.");
         } 
         else {
@@ -109,56 +110,18 @@ public class LoginActivity extends AppCompatActivity {
                     // Switching to main activity
                     switchToMainActivity(userEmail);
 
-//                    // Password is a match. Check if user is an admin user.
-//                    if(u.getAdmin()) {
-//                        // User is admin, prompt which screen to switch to.
-//                        AlertDialog.Builder popupBox = new AlertDialog.Builder(LoginActivity.this);
-//
-//                        popupBox.setTitle("Admin user detected!");
-//                        popupBox.setMessage("Enter admin user-interface?");
-//
-//                        popupBox.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Log.d(TAG, "onClick: Admin user: Switching to admin user interface");
-////                                // Switching to main activity
-////                                switchToMainActivity(userEmail);
-////                                Toast t = Toast.makeText(getApplicationContext(), "Switching to admin interface!", Toast.LENGTH_SHORT);
-////                                t.show();
-//                            }
-//                        });
-//
-//                        popupBox.setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Log.d(TAG, "onClick: Admin user -> Switching to regular user interface");
-////                                // Switching to main activity
-////                                switchToMainActivity(userEmail);
-////                                Toast t = Toast.makeText(getApplicationContext(), "Switching to regular user interface", Toast.LENGTH_SHORT);
-////                                t.show();
-//                            }
-//                        });
-//
-//                        popupBox.show();
-//
-//                    }
-//                    else {
-////                        // Switching to main activity
-////                        switchToMainActivity(userEmail);
-//                        Log.d(TAG, "loginButtonClicked: Regular user -> Switching to User activity!");
-//                        //Toast t = Toast.makeText(getApplicationContext(), "Switching to regular user interface", Toast.LENGTH_SHORT);
-//                        //t.show();
-//                    }
                 }
                 else {
                     Log.d(TAG, "loginButtonClicked: Invalid password.");
-                    Toast.makeText(this, "Incorrect password!", Toast.LENGTH_SHORT).show();
+                    editPass.setError("Incorrect password.");
+                    //Toast.makeText(this, "Incorrect password!", Toast.LENGTH_SHORT).show();
 
                 }
             }
             else {
                 Log.d(TAG, "loginButtonClicked: Email can't be found on database.");
-                Toast.makeText(this, "Email does not exist!", Toast.LENGTH_SHORT).show();
+                editEmailLogin.setError("Email does not exist.");
+                //Toast.makeText(this, "Email does not exist!", Toast.LENGTH_SHORT).show();
             }
         }
 
