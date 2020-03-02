@@ -61,6 +61,9 @@ public class MainActivity extends AppCompatActivity
 
     private String message;
     private String recipient;
+    private static int year = 2020;
+    private static int month = 06;          // month = July (Jan starts at 0 so 6 is July)
+    private static int dayOfMonth = 22;
 
     private User currentUser;
     
@@ -385,4 +388,23 @@ public class MainActivity extends AppCompatActivity
         ft.commit();
     }
 
+    public void setDateFromPicker(int year, int month, int dayOfMonth) {
+        this.year = year;
+        this.month = month;
+        this.dayOfMonth = dayOfMonth;
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frame_main_content, new ViewSkedByDayFragment());
+        ft.commit();
+    }
+
+    public int getSelectedYear() {
+        return year;
+    }
+    public int getSelectedMonth() {
+        return month;
+    }
+    public int getSelectedDayOfMonth() {
+        return dayOfMonth;
+    }
 }
