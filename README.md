@@ -11,9 +11,9 @@
 
 * Room persistence library
 
-* Fragments / Frame layout
+* Linear and Frame layouts
 
-* WebView, Navigation Drawer, Toolbar, Intents, ListView
+* Fragments, WebView, Navigation Drawer, Toolbar, Intents, ListView
 
 * sqlite read/write operations and target-specific queries
 
