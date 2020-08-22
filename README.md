@@ -3,10 +3,6 @@
 ### Tourist information app for the Tokyo 2020 Summer Olympics Game
 #### ***DISCLAIMER: This app was developed as an exercise in native Android mobile application development and is not in any way affiliated with the Tokyo 2020 Summer Olympics organization.*** 
 
-#### Screenshots  
-
-<img src="./screenshots/screenshot1.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot3.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot4.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot5.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot6.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot8.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot9.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot10.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot12.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot13.png" alt="Title screen" width="200">
-
 #### Technologies/Concepts used
 
 * Room persistence library
@@ -28,6 +24,10 @@
 * SMS permission and SMS Manager
 
 * Calendar scheduling
+
+#### Screenshots  
+
+<img src="./screenshots/screenshot1.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot3.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot4.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot5.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot6.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot8.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot9.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot10.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot12.png" alt="Title screen" width="200">     <img src="./screenshots/screenshot13.png" alt="Title screen" width="200">
 
 #### Features
 
