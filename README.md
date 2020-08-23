@@ -21,7 +21,7 @@
 
 #### Screenshots  
 
-<img src="./screenshots/screenshot1.png" alt="Login screen" width="200">     <img src="./screenshots/screenshot3.png" alt="Home screen" width="200">     <img src="./screenshots/screenshot6.png" alt="Attraction screen" width="200">     <img src="./screenshots/screenshot8.png" alt="Schedule screen" width="200">     <img src="./screenshots/tokyo2020-login.gif" alt="Login demo" height="350">     <img src="./screenshots/tokyo2020-attractions.gif" alt="Attractions demo" height="350">     <img src="./screenshots/tokyo2020-schedules.gif" alt="Schedules demo" height="350">     <img src="./screenshots/tokyo2020-contact-logout.gif" alt="Contacts and logout demo" height="350">
+<img src="./screenshots/screenshot1.png" alt="Login screen" width="200">     <img src="./screenshots/screenshot3.png" alt="Home screen" width="200">     <img src="./screenshots/screenshot6.png" alt="Attraction screen" width="200">     <img src="./screenshots/screenshot8.png" alt="Schedule screen" width="200">     <img src="./screenshots/tokyo2020-login.gif" alt="Login demo" width="200">     <img src="./screenshots/tokyo2020-attractions.gif" alt="Attractions demo" width="200">     <img src="./screenshots/tokyo2020-schedules.gif" alt="Schedules demo" width="200">     <img src="./screenshots/tokyo2020-contact-logout.gif" alt="Contacts and logout demo" width="200">
 
 #### Features
 
